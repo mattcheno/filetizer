@@ -7,12 +7,14 @@
 #  2016/11/30
 
 # --- Declarations ------------------------------------------------------------
-import os, shutil#, re
+import os, shutil, re
 
 # --- Logic -------------------------------------------------------------------
 print('Enter directory location')
 tarDir = input()
 outFile = open('output.txt', 'w')
+fiTCo = {}
+regxFileType = re.compile(r'\.(\w)+$')
 #regxIgnore = re.compile(r'^[.]', re.I)
 
 #TODO: Check if directory exists, throw error and stop script if not
@@ -32,8 +34,17 @@ for dirs, subdirs, files in os.walk(tarDir):
 	for fiName in files:
 		#fiMat = regxIgnore.search(fiName)
 		outFile.write('File in ' + dirs + ': ' + fiName + '\n')
+		fiTMat = regxFileType.search(fiName)
+		if fiTMat is not None:
+			fiTCo.setdefault(fiTMat.group(), 0)
+			fiTCo[fiTMat.group()] = fiTCo[fiTMat.group()] + 1
 	
 	outFile.write('::  \n')
+
+outFile.write('==================================================\n')
+
+for k, v in fiTCo.items():
+	outFile.write('Key: ' + k + ' Value: ' + str(v) + '\n')
 
 print('Done!')
 outFile.close()
