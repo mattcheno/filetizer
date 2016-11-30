@@ -15,25 +15,27 @@ tarDir = input()
 outFile = open('output.txt', 'w')
 fiTCo = {}
 regxFileType = re.compile(r'\.(\w)+$')
-#regxIgnore = re.compile(r'^[.]', re.I)
+regxSpaces = re.compile(r'\s')
 
 #TODO: Check if directory exists, throw error and stop script if not
 
 outFile.write('Target directory: ' + tarDir + '\n')
 for dirs, subdirs, files in os.walk(tarDir):
-	#dirMat = regxIgnore.search(dir)
 	files = [f for f in files if not f[0] == '.']
 	subdirs[:] = [s for s in subdirs if not s[0] == '.']
 	#dirs = [d for d in dirs if not d[0] == '.']
 	
+	newDir = regxSpaces.sub('_', dirs)
 	outFile.write('Current directory: ' + dirs + '\n')
-	
-#	for dirName in subdirs:
-#		outFile.write('Sub-directory of ' + dirs + ': ' + subdirs + '\n')
+	outFile.write(newDir + '\n')
+	#TODO: use newDir to rename directory instead of writing to file
 	
 	for fiName in files:
-		#fiMat = regxIgnore.search(fiName)
+		newFName = regxSpaces.sub('_', fiName)
 		outFile.write('File in ' + dirs + ': ' + fiName + '\n')
+		outFile.write('CHANGED TO: ' + newFName + '\n')
+		#TODO: Figure out how to exclude certain file types
+		#TODO: use newFName to rename file instead of writing
 		fiTMat = regxFileType.search(fiName)
 		if fiTMat is not None:
 			fiTCo.setdefault(fiTMat.group(), 0)
