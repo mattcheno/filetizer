@@ -16,14 +16,12 @@ outFile = open('output.txt', 'w')
 
 #TODO: Check if directory exists, throw error and stop script if not
 
-#TODO: write this output to a text file instead of the shell
-
 outFile.write('Target directory: ' + tarDir + '\n')
 for dir, subdirs, fileNames in os.walk(tarDir):
 	outFile.write('Current directory: ' + dir + '\n')
 	
-	for dirName in subdirs:
-		outFile.write('Sub-directory of ' + dir + ': ' + dirName + '\n')
+#	for dirName in subdirs:
+#		outFile.write('Sub-directory of ' + dir + ': ' + dirName + '\n')
 	
 	for fiName in fileNames:
 		outFile.write('File in ' + dir + ': ' + fiName + '\n')
