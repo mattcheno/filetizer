@@ -12,22 +12,24 @@ import os, shutil
 # --- Logic -------------------------------------------------------------------
 print('Enter directory location')
 tarDir = input()
+outFile = open('output.txt', 'w')
 
 #TODO: Check if directory exists, throw error and stop script if not
 
-#TODO: write this output to a text file instead of the shell
-
-print('Target directory: ' + tarDir)
+outFile.write('Target directory: ' + tarDir + '\n')
 for dir, subdirs, fileNames in os.walk(tarDir):
-	print('Current directory: ' + dir)
+	outFile.write('Current directory: ' + dir + '\n')
 	
-	for dirName in subdirs:
-		print('Sub-directory of ' + dir + ': ' + dirName)
+#	for dirName in subdirs:
+#		outFile.write('Sub-directory of ' + dir + ': ' + dirName + '\n')
 	
 	for fiName in fileNames:
-		print('File in ' + dir + ': ' + fiName)
+		outFile.write('File in ' + dir + ': ' + fiName + '\n')
 	
-	print(':: ')
+	outFile.write('::  \n')
+
+print('Done!')
+outFile.close()
 
 # === FOOTNOTES ===============================================================
 # === END OF CODE =============================================================
