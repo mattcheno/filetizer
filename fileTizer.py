@@ -13,19 +13,21 @@ import os, shutil, re
 print('Enter directory location')
 tarDir = input()
 outFile = open('output.txt', 'w')
-rgexIgnore = re.compile(r'^\.', re.I)
+regxIgnore = re.compile(r'^[.]', re.I)
 
 #TODO: Check if directory exists, throw error and stop script if not
 
 outFile.write('Target directory: ' + tarDir + '\n')
 for dir, subdirs, fileNames in os.walk(tarDir):
-	outFile.write('Current directory: ' + dir + '\n')
+	dirMat = regxIgnore.search(dir)
+	outFile.write('Current directory: ' + dirmat.group() + '\n')
 	
 #	for dirName in subdirs:
 #		outFile.write('Sub-directory of ' + dir + ': ' + dirName + '\n')
 	
 	for fiName in fileNames:
-		outFile.write('File in ' + dir + ': ' + fiName + '\n')
+		fiMat = regxIgnore.search(fiName)
+		outFile.write('File in ' + dir + ': ' + fiMat.group() + '\n')
 	
 	outFile.write('::  \n')
 
