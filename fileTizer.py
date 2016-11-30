@@ -7,12 +7,13 @@
 #  2016/11/30
 
 # --- Declarations ------------------------------------------------------------
-import os, shutil
+import os, shutil, re
 
 # --- Logic -------------------------------------------------------------------
 print('Enter directory location')
 tarDir = input()
 outFile = open('output.txt', 'w')
+rgexIgnore = re.compile(r'^\.', re.I)
 
 #TODO: Check if directory exists, throw error and stop script if not
 
