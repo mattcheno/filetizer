@@ -23,26 +23,15 @@ outFile.write('Target directory: ' + tarDir + '\n')
 for dirs, subdirs, files in os.walk(tarDir):
 	files = [f for f in files if not f[0] == '.']
 	subdirs[:] = [s for s in subdirs if not s[0] == '.']
-	#dirs = [d for d in dirs if not d[0] == '.']
+#	dirs = [d for d in dirs if not d[0] == '.']
 	
-	newDir = regxSpaces.sub('_', dirs)
-	outFile.write('Current directory: ' + dirs + '\n')
-	outFile.write(newDir + '\n')
-	#TODO: use newDir to rename directory instead of writing to file
+	newDir = regxSpaces.sub('_', subdirs)
+#	outFile.write('Current directory: ' + dirs + '\n')
+#	outFile.write(newDir + '\n')
+#	#TODO: use newDir to rename directory instead of writing to file
 	shutil.move(dirs, newDir) #<-------------------------------------------MOVE
 	
-	for fiName in files:
-		newFName = regxSpaces.sub('_', fiName)
-		outFile.write('File in ' + dirs + ': ' + fiName + '\n')
-		outFile.write('CHANGED TO: ' + newFName + '\n')
-		#TODO: Figure out how to exclude certain file types
-		shutil.move(fiName, newFName)  #<----------------------------------MOVE
-		#TODO: use newFName to rename file instead of writing
-		fiTMat = regxFileType.search(fiName)
-		if fiTMat is not None:
-			fiTCo.setdefault(fiTMat.group(), 0)
-			fiTCo[fiTMat.group()] = fiTCo[fiTMat.group()] + 1
-	
+	outFile.write(newDir + '\n')
 	outFile.write('::  \n')
 
 outFile.write('==================================================\n')
