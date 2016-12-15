@@ -29,12 +29,14 @@ for dirs, subdirs, files in os.walk(tarDir):
 	outFile.write('Current directory: ' + dirs + '\n')
 	outFile.write(newDir + '\n')
 	#TODO: use newDir to rename directory instead of writing to file
+	shutil.move(dirs, newDir) #<-------------------------------------------MOVE
 	
 	for fiName in files:
 		newFName = regxSpaces.sub('_', fiName)
 		outFile.write('File in ' + dirs + ': ' + fiName + '\n')
 		outFile.write('CHANGED TO: ' + newFName + '\n')
 		#TODO: Figure out how to exclude certain file types
+		shutil.move(fiName, newFName)  #<----------------------------------MOVE
 		#TODO: use newFName to rename file instead of writing
 		fiTMat = regxFileType.search(fiName)
 		if fiTMat is not None:
